@@ -11,6 +11,10 @@ import (
 
 func main() {
 	username := os.Args[1]
+	if len(os.Args) > 2 {
+		fmt.Println("Please only enter the username, no other arguments are accepted...")
+		return
+	}
 
 	client := http.Client{
 		Timeout: 5 * time.Second,
@@ -35,5 +39,13 @@ func main() {
 		log.Fatalln("Unexpected status: ", resp.StatusCode)
 	}
 
-	fmt.Println("Response: ", resp)
+	ps, err := ParseResponse(resp.Body)
+	if err != nil {
+		log.Fatalln("Error parsing json response: ", err)
+	}
+
+	// fmt.Println("Response: ", ps)
+	for _, data := range ps {
+		GithubDataToHumanReadable(data)
+	}
 }
