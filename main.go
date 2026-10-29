@@ -51,7 +51,5 @@ func main() {
 		log.Fatalln("Error parsing json response: ", err)
 	}
 
-	for _, data := range ps {
-		GithubDataToHumanReadable(data)
-	}
+	GithubDataToHumanReadable(ps)
 }
