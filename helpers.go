@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 )
 
 func ParseResponse(r io.Reader) ([]PR, error) {
@@ -14,31 +13,35 @@ func ParseResponse(r io.Reader) ([]PR, error) {
 }
 
 func GithubDataToHumanReadable(rawData PR) {
-	eventType := HandleEventsDesc(rawData)
-	if eventType == "error" {
-		log.Fatalln("Bad event")
+	desc, typ := HandleEventsDesc(rawData)
+	if typ == "issue" {
+		fmt.Println(desc)
 	}
 
-	repoName := rawData.Repo.Name
-	fmt.Println("Repo name: ", repoName)
-	fmt.Println("Event type: ", eventType)
+	// fmt.Println(desc)
+	// repoName := rawData.Repo.Name
+	// fmt.Println("Repo name: ", repoName)
+	// fmt.Println("Event type: ", eventType)
 }
 
-func HandleEventsDesc(gitData PR) string {
+func HandleEventsDesc(gitData PR) (string, string) {
 	event := Event(gitData.Type)
+	repoName := gitData.Repo.Name
+	payload := gitData.Payload
+
 	switch event {
 	case CreateEvent:
-		return "create"
+		return HandleCreateEvent(repoName), "create"
 	case PushEvent:
-		return "push"
+		return HandlePushEvent(repoName), "push"
 	case IssuesEvent:
-		return "issue"
+		return HandleIssuesEvent(repoName, payload), "issue"
 	case WatchEvent:
-		return "watch"
+		return HandleWatchEvent(repoName), "watch"
 	case PullRequestEvent:
-		return "pullReq"
+		return HandlePullEvent(repoName), "pull"
 	default:
-		fmt.Println("Invalid event or the project is small enough to not record this event")
-		return "error"
+		resp := fmt.Sprintf("Invalid event or the project is small enough to not record this event: ", gitData.Type)
+		return resp, "error"
 	}
 }

@@ -39,12 +39,18 @@ func main() {
 		log.Fatalln("Unexpected status: ", resp.StatusCode)
 	}
 
+	// byts, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	log.Fatalln("Error reading resp body: ", err)
+	// }
+	//
+	// fmt.Println(string(byts))
+
 	ps, err := ParseResponse(resp.Body)
 	if err != nil {
 		log.Fatalln("Error parsing json response: ", err)
 	}
 
-	// fmt.Println("Response: ", ps)
 	for _, data := range ps {
 		GithubDataToHumanReadable(data)
 	}
