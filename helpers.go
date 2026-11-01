@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 )
 
@@ -35,8 +34,7 @@ func ParseResponse(r io.Reader) ([]PR, error) {
 //	}
 func GithubDataToHumanReadable(rawData []PR) {
 	CountIssues(rawData)
-	resp := HandleIssuesEvent()
-	fmt.Println(resp)
+	HandleIssuesEvent()
 }
 
 // func HandleEventsDesc(gitData PR) (string, string) {

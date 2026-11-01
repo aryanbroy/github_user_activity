@@ -14,9 +14,7 @@ func HandleWatchEvent(repoName string) string {
 	resp := fmt.Sprintf("Starred %s", repoName)
 	return resp
 }
-func HandleIssuesEvent() string {
-
-	var resp string
+func HandleIssuesEvent() {
 
 	for repoInf, count := range issueMap {
 		res := strings.Split(repoInf, "/")
@@ -25,54 +23,53 @@ func HandleIssuesEvent() string {
 		if count > 1 {
 			switch resAction {
 			case "opened":
-				resp = fmt.Sprintf("Opened %v issues in %s", count, repoName)
+				fmt.Printf("Opened %v issues in %s\n", count, repoName)
 			case "closed":
-				resp = fmt.Sprintf("Closed %v issues in %s", count, repoName)
+				fmt.Printf("Closed %v issues in %s\n", count, repoName)
 			case "reopened":
-				resp = fmt.Sprintf("Reopened %v issues in %s", count, repoName)
+				fmt.Printf("Reopened %v issues in %s\n", count, repoName)
 			case "assigned":
-				resp = fmt.Sprintf("Assigned %v issues in %s", count, repoName)
+				fmt.Printf("Assigned %v issues in %s\n", count, repoName)
 			case "unassigned":
-				resp = fmt.Sprintf("Unassigned %v issues in %s", count, repoName)
+				fmt.Printf("Unassigned %v issues in %s\n", count, repoName)
 			default:
-				resp = fmt.Sprintf("Action not implemented yet...")
+				fmt.Println("Action not implemented yet...")
 			}
 		} else {
 			switch resAction {
 			case "opened":
-				resp = fmt.Sprintf("Opened an issue in %s", repoName)
+				fmt.Printf("Opened an issue in %s\n", repoName)
 			case "closed":
-				resp = fmt.Sprintf("Closed an issue in %s", repoName)
+				fmt.Printf("Closed an issue in %s\n", repoName)
 			case "reopened":
-				resp = fmt.Sprintf("Reopened an issue in %s", repoName)
+				fmt.Printf("Reopened an issue in %s\n", repoName)
 			case "assigned":
-				resp = fmt.Sprintf("Assigned an issue in %s", repoName)
+				fmt.Printf("Assigned an issue in %s\n", repoName)
 			case "unassigned":
-				resp = fmt.Sprintf("Unassigned an issue in %s", repoName)
+				fmt.Printf("Unassigned an issue in %s\n", repoName)
 			case "edited":
-				resp = fmt.Sprintf("Edited an issue in %s", repoName)
+				fmt.Printf("Edited an issue in %s\n", repoName)
 			case "deleted":
-				resp = fmt.Sprintf("Deleted an issue in %s", repoName)
+				fmt.Printf("Deleted an issue in %s\n", repoName)
 			case "labeled":
-				resp = fmt.Sprintf("Added a label to an issue in %s", repoName)
+				fmt.Printf("Added a label to an issue in %s\n", repoName)
 			case "unlabeled":
-				resp = fmt.Sprintf("Removed a label from an issue in %s", repoName)
+				fmt.Printf("Removed a label from an issue in %s\n", repoName)
 			case "locked":
-				resp = fmt.Sprintf("Locked an issue in %s", repoName)
+				fmt.Printf("Locked an issue in %s\n", repoName)
 			case "unlocked":
-				resp = fmt.Sprintf("Unlocked an issue in %s", repoName)
+				fmt.Printf("Unlocked an issue in %s\n", repoName)
 			case "milestoned":
-				resp = fmt.Sprintf("Added an issue to a milestone in %s", repoName)
+				fmt.Printf("Added an issue to a milestone in %s\n", repoName)
 			case "demilestoned":
-				resp = fmt.Sprintf("Removed an issue from a milestone in %s", repoName)
+				fmt.Printf("Removed an issue from a milestone in %s\n", repoName)
 			case "transferred":
+				fmt.Printf("Transferred an issue from %s\n", repoName)
 			default:
-				resp = fmt.Sprintf("Action not implemented yet...")
+				fmt.Println("Action not implemented yet...")
 			}
 		}
 	}
-
-	return resp
 }
 
 func HandlePullEvent(repoName string) string {
