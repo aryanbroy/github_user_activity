@@ -51,5 +51,7 @@ func main() {
 		log.Fatalln("Error parsing json response: ", err)
 	}
 
-	GithubDataToHumanReadable(ps)
+	AggregateEvents(ps)
+
+	GithubDataToHumanReadable()
 }
