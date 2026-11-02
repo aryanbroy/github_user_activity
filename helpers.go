@@ -40,6 +40,11 @@ func AggregateEvents(rawData []PR) {
 	for _, data := range rawData {
 		eventsMap[data]++
 	}
+
+	for k, v := range eventsMap {
+		fmt.Println("Key: ", k)
+		fmt.Println("Value: ", v)
+	}
 }
 
 func GithubDataToHumanReadable() {
@@ -55,7 +60,7 @@ func HandleEventsDesc(event Event, payload Payload, repoName string, count int) 
 	case CreateEvent:
 		HandleCreateEvent(repoName)
 	case PushEvent:
-		HandlePushEvent(repoName)
+		HandlePushEvent(repoName, count)
 	case IssuesEvent:
 		HandleIssuesEvent(payload.Action, repoName, count)
 	case WatchEvent:

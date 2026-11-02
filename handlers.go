@@ -68,6 +68,12 @@ func HandlePullEvent(repoName string) {
 	fmt.Printf("Opened a pull request in %s\n", repoName)
 }
 
-func HandlePushEvent(repoName string) {
-	fmt.Printf("Pushed a commit to %s\n", repoName)
+func HandlePushEvent(repoName string, count int) {
+	if count == 1 {
+		fmt.Printf("Pushed a commit to %s\n", repoName)
+	} else if count > 1 {
+		fmt.Printf("Pushed %v commits to %s\n", count, repoName)
+	} else {
+		fmt.Printf("Count value is invalid, count: %v\n,", count)
+	}
 }
