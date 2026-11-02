@@ -69,6 +69,7 @@ func HandlePullEvent(repoName string) {
 }
 
 func HandlePushEvent(repoName string, count int) {
+	// demo commit to count the number of commits in a push event
 	if count == 1 {
 		fmt.Printf("Pushed a commit to %s\n", repoName)
 	} else if count > 1 {
